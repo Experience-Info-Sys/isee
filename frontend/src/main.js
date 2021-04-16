@@ -51,7 +51,9 @@ const data = {
       ssn: "348-16-9742",
     },
   ],
-  imgSearchData: [
+  imageOrder: [],
+  imageIndex: 0,
+  imageSearchData: [
     // {
     //   imageID: integer,
     //   hasContraband: Boolean,

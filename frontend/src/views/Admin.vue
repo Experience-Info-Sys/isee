@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-gray-100 p-2 shadow-inner">
+  <div class="bg-gray-200 p-2 shadow-inner">
     <div class="bg-blue-200 rounded shadow-lg m-2 p-4 md:w-3/4 lg:1/2 mx-auto">
       <h1>Task Manager</h1>
       <h2>Add a Task</h2>
@@ -12,7 +12,7 @@
         />
         <button
           @click.prevent="addTask()"
-          class="m-4 p-2 bg-blue-500 focus:outline-none transition duration-75 ease-in-out transform active:-translate-y-1 active:scale-95 shadow-lg text-white rounded-3xl"
+          class="m-4 p-2 bg-blue-900 hover:bg-blue-800 focus:outline-none transition duration-75 ease-in-out transform active:-translate-y-1 active:scale-95 shadow-lg text-white rounded-3xl"
         >
           Add Research Task
         </button>
@@ -56,7 +56,9 @@
           <button
             class="p-2 px-3 m-4 focus:outline-none rounded-3xl text-white bg-blue-500 hover:bg-blue-400 transition duration-75 ease-in-out transform active:-translate-y-1 active:scale-95 shadow-lg"
             v-for="(task, index) in tasks"
-            v-bind:class="{ 'bg-blue-900 hover:bg-blue-800': index === activeSurveyIndex }"
+            v-bind:class="{
+              'bg-blue-900 hover:bg-blue-800': index === activeSurveyIndex,
+            }"
             :key="task.id"
             @click="selectSurvey(task, index)"
           >
@@ -67,7 +69,7 @@
           <router-link
             :to="surveyLink"
             class="w-full p-3 px-4 m-2 rounded-3xl shadow-lg bg-green-900 hover:bg-green-700 text-white"
-            >Link to Survey "{{ survey.name }}"</router-link
+            >Preview Survey: "{{ survey.name }}"</router-link
           >
         </div>
         <div
@@ -189,7 +191,7 @@
             </div>
           </div>
           <button
-            class="p-2 px-3 m-4 focus:outline-none rounded-3xl text-white bg-blue-900 transition duration-75 ease-in-out transform active:-translate-y-1 active:scale-95 shadow-lg"
+            class="p-2 px-3 m-4 focus:outline-none rounded-3xl text-white bg-blue-900 hover:bg-blue-800 transition duration-75 ease-in-out transform active:-translate-y-1 active:scale-95 shadow-lg"
             @click.prevent="addQuestion"
           >
             Add Question to {{ survey.name }}

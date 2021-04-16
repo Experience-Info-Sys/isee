@@ -7,6 +7,7 @@
     frameborder="0"
     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
     allowfullscreen
+    class="mx-auto shadow-2xl rounded-md"
   ></iframe>
 </template>
 

@@ -9,7 +9,7 @@ export default {
   props: ["time", "to", "from"],
   data() {
     return {
-      timerCount: 6, //this.time,
+      timerCount: this.time,
     };
   },
   watch: {

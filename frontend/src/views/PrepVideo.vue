@@ -1,12 +1,14 @@
 <template>
-  <div>
-    <Timer
-      v-bind:time="45"
-      to="prep_image_search"
-      from="prep_video"
-      class="p-4"
-    />
-    <Video />
+  <div class="bg-gray-300 shadow-inner p-4 pb-14">
+    <div class="w-2/3 mx-auto">
+      <Timer
+        v-bind:time="180"
+        to="prep_image_search"
+        from="prep_video"
+        class="p-4"
+      />
+      <Video />
+    </div>
   </div>
 </template>
 
