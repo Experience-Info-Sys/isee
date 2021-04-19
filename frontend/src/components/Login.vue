@@ -25,7 +25,7 @@
         </button>
       </div>
     </div>
-    <p v-if="errorLogin" class="error">{{ errorLogin }}</p>
+    <p v-if="errorLogin" class="text-red-800">{{ errorLogin }}</p>
   </div>
 </template>
 

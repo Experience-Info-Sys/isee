@@ -120,7 +120,7 @@ const validUser = users.valid;
 
 
 // API endpoint for creating tasks
-app.post("/api/tasks", async (req, res) => {
+app.post("/api/tasks", validUser, async (req, res) => {
   const task = new Task({
     name: req.body.name,
   });
@@ -146,7 +146,7 @@ app.get("/api/tasks", async (req, res) => {
 });
 
 // Updating tasks
-app.put("/api/tasks/:taskId", async (req, res) => {
+app.put("/api/tasks/:taskId", validUser, async (req, res) => {
   try {
     let task = await Task.findOne({ _id: req.params.taskId });
     if (!task) {
@@ -163,7 +163,7 @@ app.put("/api/tasks/:taskId", async (req, res) => {
 });
 
 // Deleting tasks
-app.delete("/api/tasks/:taskId", async (req, res) => {
+app.delete("/api/tasks/:taskId", validUser, async (req, res) => {
   try {
     console.log(req.params.taskId);
     let task = await Task.findOne({ _id: req.params.taskId });
@@ -189,7 +189,7 @@ app.get("/api/task/:name", async (req, res) => {
 });
 
 // Add Question
-app.post("/api/survey/:name/question", async (req, res) => {
+app.post("/api/survey/:name/question", validUser, async (req, res) => {
   try {
     let task = await Task.findOne({ name: req.params.name });
     if (!task) {
@@ -228,7 +228,7 @@ app.get("/api/survey/:name/questions", async (req, res) => {
   }
 });
 
-app.delete("/api/survey/question/:questionId", async (req, res) => {
+app.delete("/api/survey/question/:questionId", validUser, async (req, res) => {
   try {
     console.log(req.params.questionId);
     let question = await Question.findOne({ _id: req.params.questionId });
@@ -244,7 +244,7 @@ app.delete("/api/survey/question/:questionId", async (req, res) => {
 });
 
 app.delete(
-  "/api/survey/question/:questionId/answer/:answerNum",
+  "/api/survey/question/:questionId/answer/:answerNum", validUser,
   async (req, res) => {
     try {
       console.log(req.params.questionId);
@@ -266,7 +266,7 @@ app.delete(
 );
 
 // edit question
-app.put("/api/survey/question/:questionId", async (req, res) => {
+app.put("/api/survey/question/:questionId", validUser, async (req, res) => {
   try {
     let question = await Question.findOne({ _id: req.params.questionId });
     if (!question) {

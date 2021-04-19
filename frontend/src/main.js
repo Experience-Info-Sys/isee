@@ -23,9 +23,10 @@ const data = {
     address,
     city,
     state,
-    zip,
+    zip
     // ssn
-  ) {
+    ) {
+    this.currentID++;
     this.participant.dataEntries.push({
       task: task,
       id: this.currentID,
@@ -40,7 +41,6 @@ const data = {
       zip_code: zip,
       // ssn: ssn,
     });
-    this.currentID++;
   },
 };
 
