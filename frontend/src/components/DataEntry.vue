@@ -19,7 +19,7 @@
           v-model="department"
         />
       </div>
-      <div class="row">
+      <div class="row row-span-full">
         <label for="job">Job: </label>
         <input
           class="rounded-lg focus:outline-none focus:ring focus:border-blue-300 shadow-inner p-1"
@@ -27,13 +27,13 @@
           type="text"
           v-model="job"
         />
-        <label for="email">Email: </label>
+        <!-- <label for="email">Email: </label>
         <input
           class="rounded-lg focus:outline-none focus:ring focus:border-blue-300 shadow-inner p-1"
           id="email"
           type="email"
           v-model="email"
-        />
+        /> -->
       </div>
       <div class="row">
         <label for="address">Address: </label>
@@ -69,7 +69,7 @@
           v-model="zip_code"
         />
       </div>
-      <div class="row">
+      <!-- <div class="row">
         <label for="ssn">SSN: </label>
         <input
           class="rounded-lg focus:outline-none focus:ring focus:border-blue-300 shadow-inner p-1"
@@ -77,7 +77,7 @@
           type="text"
           v-model="ssn"
         />
-      </div>
+      </div> -->
     </div>
     <!-- </form> -->
     <button
@@ -108,7 +108,7 @@ input {
 
 <script>
 import InfoCard from "./InfoCard.vue";
-
+import axios from "axios";
 export default {
   name: "DataEntry",
   components: {
@@ -116,17 +116,20 @@ export default {
   },
   data() {
     return {
+      task: Object,
       id: "",
       name: "",
       job: "",
       department: "",
-      email: "",
       address: "",
       city: "",
       state: "",
       zip_code: "",
-      ssn: "",
     };
+  },
+  created: async function () {
+    const response = await axios.get(`/api/task${this.$route.path}`);
+    this.task = response.data;
   },
   computed: {
     currentEmployee() {
@@ -139,12 +142,10 @@ export default {
         "name",
         "job",
         "department",
-        "email",
         "address",
         "city",
         "state",
         "zip_code",
-        "ssn",
       ];
       for (const key of dataIDs) {
         if (this[key] === null || this[key] === "") {
@@ -153,27 +154,26 @@ export default {
       }
       this.id = this.$root.$data.currentID;
       let [fname, lname] = this.name.trim().split(" ");
-      // console.log(fname, "middle",lname)
-      this.$root.$data.addDataEntered(
+      this.$root.$data.newDataEntry(
+        this.task,
         fname,
         lname,
-        this.email,
         this.job,
         this.department,
         this.address,
         this.city,
         this.state,
-        this.zip_code,
-        this.ssn
+        this.zip_code
+        // this.ssn
       );
       this.name = "";
       this.address = "";
       this.city = "";
       this.department = "";
-      this.email = "";
+      // this.email = "";
       this.id = "";
       this.job = "";
-      this.ssn = "";
+      // this.ssn = "";
       this.state = "";
       this.zip_code = "";
     },

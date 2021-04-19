@@ -9,7 +9,7 @@
         </h1>
         <div
           v-for="(question, index) in questions"
-          :key="question.id"
+          :key="question._id"
           class="text-left text-lg p-4 px-8 my-1 hover:bg-blue-50 rounded-lg"
         >
           <h2>{{ index + 1 }}. {{ question.question }}</h2>
@@ -22,7 +22,7 @@
               type="radio"
               :name="question._id"
               :id="answer._id"
-              @change="selectAnswer(question._id, answer._id)"
+              @change="selectAnswer(answer, index)"
               :value="answer.number"
             />
             <label class="px-2" :for="answer._id">{{ answer.answer }}</label>
@@ -48,6 +48,7 @@ export default {
   data() {
     return {
       questions: [],
+      participantResponses: [],
     };
   },
   created() {
@@ -61,31 +62,30 @@ export default {
           `/api/survey/${this.$route.query.from}/questions`
         );
         this.questions = response.data;
+        for (let i = 0; i < this.questions.length; i++) {
+          this.participantResponses.push({
+            question: this.questions[i],
+            participantResponse: "",
+          });
+        }
       } catch (error) {
-        // console.log(error);
         this.questions = [
           {
-            id: "2584ae1857651d13",
+            _id: "-1",
             question: "An error occured in fetching your survey.",
-            answers: [
-              { id: "1", option: "Jupiter" },
-              { id: "2", option: "Saturn" },
-              { id: "3", option: "Pluto" },
-              { id: "4", option: "Earth" },
-            ],
+            answers: [],
           },
         ];
       }
     },
-    selectAnswer(question, answer) {
-      console.log(
-        this.questions.filter((q) => q._id === question),
-        answer
-      );
+    selectAnswer(answer, index) {
+      // changing the correct response when they select a different answer
+      this.participantResponses[index].participantResponse = answer;
     },
     submit() {
-      // axios.post(`/api/surveys/${$route.params.taskId}`)
-      console.log(this.$route.params.nextTaskId);
+      axios.put(`/api/data/${this.$root.$data.participant._id}/surveyAnswers`, {
+        surveyAnswers: this.participantResponses,
+      });
       this.$router.replace(`/${this.$route.query.to}`);
     },
   },

@@ -1,7 +1,17 @@
 <template>
   <div id="app">
-    <div id="wrapper" class="pb-14">
-      <div class="flex justify-between items-center">
+    <div class="flex">
+      <div
+        class="text-left p-2 flex items-center"
+        v-bind:class="[user ? 'w-1/5' : 'w-full']"
+      >
+        <img src="@/assets/logo.png" class="h-6 pr-2" />
+        <router-link to="/"><h1>Research Study</h1> </router-link>
+      </div>
+      <div
+        v-if="user && user.role === 'admin'"
+        class="flex justify-between w-full items-center"
+      >
         <div id="nav">
           <router-link to="/">Start Over</router-link> |
           <router-link to="/prep_data">Intro Data Entry</router-link>
@@ -18,12 +28,20 @@
           |
           <router-link to="/exit">Exit Page</router-link>
         </div>
-        <router-link to="/Admin" class="text-red-800 p-2 mr-4 font-bold"
-          >Admin</router-link
-        >
+        <div>
+          <router-link to="/Admin" class="text-red-800 p-1 px-2 mr-2 font-bold"
+            >Admin</router-link
+          >
+          <button
+            @click.prevent="logout()"
+            class="font-bold p-1 px-2 mr-2 text-blue-800"
+          >
+            Logout
+          </button>
+        </div>
       </div>
-      <router-view />
     </div>
+    <router-view />
     <div class="flex items-center justify-center h-14 w-full absolute bottom-0">
       <a href="https://github.com/Experience-Info-Sys/isee/"
         >Check out the Github here</a
@@ -31,6 +49,27 @@
     </div>
   </div>
 </template>
+
+<script>
+import axios from "axios";
+export default {
+  computed: {
+    user() {
+      return this.$root.$data.user;
+    },
+  },
+  methods: {
+    async logout() {
+      try {
+        await axios.delete("/api/users");
+        this.$root.$data.user = null;
+      } catch (error) {
+        this.$root.$data.user = null;
+      }
+    },
+  },
+};
+</script>
 
 <style>
 #app {

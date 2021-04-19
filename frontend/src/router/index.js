@@ -4,7 +4,7 @@ import StartPage from "../views/StartPage.vue";
 import VideoTask from "../views/VideoTask.vue";
 import ImageTask from "../views/ImgSearchTask.vue";
 import Survey from "../views/Survey.vue";
-import Admin from "../views/Admin.vue";
+import Admin from "../views/AdminHome.vue";
 import Exit from "../views/Exit.vue";
 import PrepData from "../views/PrepData.vue";
 import PrepVideo from "../views/PrepVideo.vue";

@@ -2,7 +2,7 @@
   <div class="bg-gray-300 shadow-inner p-4 pb-14">
     <div class="w-2/3 mx-auto">
       <Timer
-        v-bind:time="180"
+        v-bind:time="30"
         to="data_with_video"
         from="prep_image_search"
         class="p-4"

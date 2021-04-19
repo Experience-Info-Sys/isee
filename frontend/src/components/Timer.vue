@@ -5,6 +5,7 @@
 </template>
 
 <script>
+import axios from "axios";
 export default {
   props: ["time", "to", "from"],
   data() {
@@ -20,13 +21,25 @@ export default {
             this.timerCount--;
           }, 1000);
         } else {
-          this.$router.push({
-            path: "/survey",
-            query: { from: this.from, to: this.to },
-          });
+          this.submit();
         }
       },
       immediate: true, // This ensures the watcher is triggered upon creation
+    },
+  },
+  methods: {
+    async submit() {
+      await axios.put(
+        `/api/${this.$root.$data.participant._id}/taskData/`,
+        {
+          dataEntries: this.$root.$data.participant.dataEntries,
+          imageSearches: this.$root.$data.participant.imageSearches,
+        }
+      );
+      this.$router.push({
+        path: "/survey",
+        query: { from: this.from, to: this.to },
+      });
     },
   },
 };

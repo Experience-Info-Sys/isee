@@ -4,7 +4,7 @@
       <DataEntry class="pt-4" />
       <div>
         <Timer
-          v-bind:time="600"
+          v-bind:time="60"
           to="data_with_image_search"
           from="data_with_video"
           class="p-4 mb-10"

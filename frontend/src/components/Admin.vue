@@ -12,7 +12,7 @@
         />
         <button
           @click.prevent="addTask()"
-          class="m-4 p-2 bg-blue-900 hover:bg-blue-800 focus:outline-none transition duration-75 ease-in-out transform active:-translate-y-1 active:scale-95 shadow-lg text-white rounded-3xl"
+          class="m-4 p-2 bg-blue-900 hover:bg-blue-8n00 focus:outline-none transition duration-75 ease-in-out transform active:-translate-y-1 active:scale-95 shadow-lg text-white rounded-3xl"
         >
           Add Research Task
         </button>
@@ -81,7 +81,7 @@
             <input
               type="text"
               class="focus:outline-none focus:border-solid border-b-2 border-transparent focus:border-blue-900 bg-gray-50 hover:bg-gray-200 p-3 w-full"
-              id="question"
+              :id="question._id"
               placeholder="Question"
               v-model="question.question"
               onClick="this.setSelectionRange(0, this.value.length)"
@@ -147,7 +147,7 @@
             <input
               type="text"
               class="focus:outline-none focus:border-solid border-b-2 border-transparent focus:border-blue-900 bg-gray-50 hover:bg-gray-200 p-3 w-full"
-              id="question"
+              :id="question._id"
               placeholder="Question"
               v-model="question.question"
               onClick="this.setSelectionRange(0, this.value.length)"
@@ -225,6 +225,8 @@ export default {
   created: async function () {
     await this.getTasks();
     this.selectSurvey(this.tasks[0], 0);
+    const response = await axios.get("/api/user/test");
+    this.$root.$data.participant = response.data;
   },
   methods: {
     // Task Methods

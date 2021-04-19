@@ -6,7 +6,7 @@
         class="flex flex-col w-full md:w-5/12 px-6 items-center justify-center"
       >
         <Timer
-          v-bind:time="600"
+          v-bind:time="30"
           to="exit"
           from="data_with_image_search"
           class="p-4"

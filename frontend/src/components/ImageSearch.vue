@@ -30,18 +30,22 @@
 </template>
 
 <script>
+import axios from "axios";
 export default {
   name: "ImageSearch",
   data() {
     return {
       angles: ["rotate-0", "rotate-90", "rotate-180", "-rotate-90"],
       rotation: "rotate-0",
+      task: Object,
     };
   },
-  created: function () {
+  created: async function () {
     if (this.$root.$data.imageOrder.length === 0) {
       this.shuffleArray(52);
     }
+    const response = await axios.get(`/api/task${this.$route.path}`);
+    this.task = response.data;
   },
   methods: {
     shuffleArray(size) {
@@ -63,10 +67,11 @@ export default {
       this.rotation = this.angles[Math.floor(Math.random() * 4)];
     },
     nextImage(contrabandPresent) {
-      this.$root.$data.imageSearchData.push({
+      this.$root.$data.participant.imageSearches.push({
+        task: this.task,
         imageNumber: this.$root.$data.imageOrder[this.$root.$data.imageIndex],
-        participantDecision: contrabandPresent,
-        imageOrientation: this.roatition,
+        imageOrientation: this.rotation,
+        hasContraband: contrabandPresent,
       });
       this.$root.$data.imageIndex++;
       if (this.$root.$data.imageIndex % 52 === 0) {
