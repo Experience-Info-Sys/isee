@@ -6,7 +6,7 @@
         class="flex flex-col w-full md:w-5/12 px-6 items-center justify-center"
       >
         <Timer
-          v-bind:time="30"
+          v-bind:time="60"
           to="exit"
           from="data_with_image_search"
           class="p-4"
@@ -14,7 +14,6 @@
         <ImageSearch />
       </div>
     </div>
-    <!-- <Submissions /> -->
   </div>
 </template>
 
@@ -27,7 +26,7 @@ import ImageSearch from "@/components/ImageSearch.vue";
 // import Submissions from "@/components/Submissions.vue";
 
 export default {
-  name: "ImageTask",
+  name: "Task",
   components: {
     Timer,
     DataEntry,
